@@ -5,7 +5,7 @@ exports.deleteblog = async function (req, res) {
     try {
         const id = req.params.id;
         await Blog.findOneAndDelete({ _id: id });
-        res.redirect("/");
+        res.redirect("/dashboard/home");
     } catch (error) {
         console.log(error);
     }

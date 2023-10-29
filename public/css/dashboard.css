@@ -19,7 +19,7 @@ nav {
     display: flex;
     align-items: center;
     padding: 15px;
-    gap: 50px;
+    gap: 18px;
     position: sticky;
     background-color: #fff;
     top: 0;
@@ -31,20 +31,57 @@ nav h1 {
 }
 
 nav input {
-    width: 350px;
+    width: 280px;
     height: 35px;
     padding: 15px;
     border-radius: 2rem;
     font-size: 1rem;
 }
 
-.add-post button,
-.login-btn button {
-    padding: 8px;
+.add-post button {
+    padding: 4px;
     background-color: yellow;
     border-radius: 10px;
     cursor: pointer;
 }
+
+.logout-btn button {
+    padding: 5px;
+    background-color: #888;
+    color: rgba(245, 245, 245, 0.682);
+    border-radius: 10px;
+    border: none;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+.myblogs {
+    width: 70px;
+}
+
+.myblogs:hover {
+    color: gray;
+}
+
+.logout-btn {
+    width: 130px;
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+.logout-btn p {
+    width: 72px;
+    text-align: end;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 2px;
+}
+
+
 
 /* main */
 
@@ -83,13 +120,14 @@ main {
 }
 
 .content {
+    width: 440px;
     padding-left: 0;
     padding-top: 10px;
 }
 
 .title {
     font-size: 1.2rem;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .description {

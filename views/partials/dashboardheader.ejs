@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 
 <body>
@@ -21,11 +21,15 @@
                 <input type="search" name="searchTerm" placeholder="Search Blogs..." autocomplete="off" />
             </form>
         </div>
+        <a href="/dashboard/myblogs" class="myblogs">My blogs</a>
         <div class="add-post">
             <a href="/modifyblog"><button>Add Blog</button></a>
         </div>
-        <div class="login-btn">
-            <a href="/login"><button>Login</button></a>
+        <div class="logout-btn">
+            <p>
+                <%= username %>
+            </p>
+            <a href="/dashboard/logout"><button>Logout</button></a>
         </div>
     </nav>
     <main>

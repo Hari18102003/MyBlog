@@ -5,9 +5,10 @@ const Blog = require("../schema/blog");
 
 exports.updateblog = async function (req, res) {
     try {
+        const username = req.session.myblog.username;
         const id = req.params.id;
         const blog = await Blog.findById({ _id: id });
-        res.render("update.ejs", { blog });
+        res.render("update.ejs", { blog, username });
     } catch (error) {
         console.log(error);
     }
@@ -31,7 +32,7 @@ exports.updateblogpost = async function (req, res) {
                     date: new Date().toJSON().slice(0, 10) || presentBlog.date
                 });
             console.log("updation success");
-            res.redirect("/");
+            res.redirect("/dashboard/home");
         } else {
             const date = new Date();
             const updationBlog = await Blog.findOneAndUpdate({ _id: id },
@@ -42,7 +43,7 @@ exports.updateblogpost = async function (req, res) {
                     date: date.toJSON().slice(0, 10)
                 });
             console.log("updation success");
-            res.redirect("/");
+            res.redirect("/dashboard/home");
         }
 
     } catch (error) {

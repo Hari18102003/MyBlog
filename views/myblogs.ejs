@@ -1,6 +1,12 @@
-<%- include("partials/header.ejs") %>
+<%- include("partials/dashboardheader.ejs") %>
 
     <div class="container">
+
+        <div class="nav">
+            <p><a href="/dashboard/home" class="nav-link">Home</a>/<a href="/dashboard/myblogs" class="nav-link">My
+                    Blogs</a>
+            </p>
+        </div>
 
         <% if(blogs.length> 0){ %>
             <% blogs.forEach(blog=> { %>
@@ -13,9 +19,6 @@
                             <h3 class="title">
                                 <%= blog.title %>
                             </h3>
-                            <p class="username">
-                                <%= blog.user %>
-                            </p>
                             <p class="description">
                                 <% if(blog.content.length> 100){ %>
                                     <%= blog.content.substring(0, 140)%> <span class="readmore">Readmore...</span>
@@ -34,7 +37,6 @@
                         <h1>No Blogs yet, Create one...</h1>
                         <% } %>
 
-                            <a href="/viewmore" class="more">More Blogs...</a>
     </div>
 
     <%- include("partials/footer.ejs") %>

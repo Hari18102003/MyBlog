@@ -1,9 +1,9 @@
-<%- include("partials/header.ejs") %>
+<%- include("partials/dashboardheader.ejs") %>
 
     <div class="container">
 
         <div class="nav">
-            <p><a href="/" class="nav-link">Home</a>/<a href="/<%= blog._id %>" class="nav-link">
+            <p><a href="/dashboard/home" class="nav-link">Home</a>/<a href="/<%= blog._id %>" class="nav-link">
                     <%= blog.title %>
                 </a> </p>
         </div>
@@ -25,13 +25,15 @@
                     <%= blog.content %>
                 </p>
             </div>
-            <div class="btn">
-                <button class="update-btn"><a href="/update/<%= blog._id %>">Update Blog</a></button>
-                <button class="delete-btn"><a href="/delete/<%= blog._id %>">Delete Blog</a></button>
-            </div>
-            <% }else{ %>
-                <h1>Oops Something went wrong...</h1>
+            <% if(access==="yes" ) {%>
+                <div class="btn">
+                    <button class="update-btn"><a href="/update/<%= blog._id %>">Update Blog</a></button>
+                    <button class="delete-btn"><a href="/delete/<%= blog._id %>">Delete Blog</a></button>
+                </div>
                 <% } %>
+                    <% }else{ %>
+                        <h1>Oops Something went wrong...</h1>
+                        <% } %>
     </div>
 
     <%- include("partials/footer.ejs") %>

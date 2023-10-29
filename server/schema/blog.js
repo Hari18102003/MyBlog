@@ -15,6 +15,9 @@ const blogSchema = new mongoose.Schema({
     },
     date: {
         type: Date
+    },
+    user: {
+        type: String,
     }
 });
 

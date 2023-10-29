@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcryptjs');
 const Blog = require("../schema/blog");
+const User = require("../schema/user");
 
 // Homepage
 
@@ -20,8 +22,9 @@ exports.homepage = async function (req, res) {
 exports.viewmore = async function (req, res) {
 
     try {
+        const username = req.session.myblog.username;
         const blogs = await Blog.find().sort({ "_id": -1 });
-        res.render("viewmore.ejs", { blogs });
+        res.render("viewmore.ejs", { blogs, username });
 
     } catch (error) {
         console.log(error);
@@ -33,9 +36,14 @@ exports.viewmore = async function (req, res) {
 exports.viewblog = async function (req, res) {
 
     try {
+        const username = req.session.myblog.username;
         const id = req.params.id;
         const blog = await Blog.findById({ _id: id });
-        res.render("viewblog.ejs", { blog });
+        if (username === blog.user) {
+            res.render("viewblog.ejs", { blog, username, access: "yes" });
+        } else {
+            res.render("viewblog.ejs", { blog, username, access: "no" });
+        }
 
     } catch (error) {
         console.log(error);
@@ -48,9 +56,10 @@ exports.viewblog = async function (req, res) {
 exports.searchblog = async function (req, res) {
 
     try {
+        const username = req.session.myblog.username;
         const searchTerm = req.body.searchTerm;
         let searchblog = await Blog.find({ $text: { $search: searchTerm, $diacriticSensitive: true } });
-        res.render("search.ejs", { searchblog });
+        res.render("search.ejs", { searchblog, username });
 
     } catch (error) {
         console.log(error);
@@ -62,7 +71,8 @@ exports.searchblog = async function (req, res) {
 
 exports.modifyblog = async function (req, res) {
     try {
-        res.render("modifyblog.ejs");
+        const username = req.session.myblog.username;
+        res.render("modifyblog.ejs", { username });
     } catch (error) {
         console.log(error);
     }
@@ -82,18 +92,108 @@ exports.postblog = async function (req, res) {
                 title: req.body.title,
                 content: req.body.content,
                 image: newPath,
-                date: new Date().toJSON().slice(0, 10)
+                date: new Date().toJSON().slice(0, 10),
+                user: req.session.myblog.username
             });
             await newBlog.save().then(function () {
                 console.log("uploaded");
             });
+            const blogId = await Blog.findOne({ image: newPath });
+            const currentUser = await User.findOneAndUpdate({ _id: req.session.myblog._id });
+            currentUser.blog.push(blogId);
+            await currentUser.save().then(function () {
+                console.log("added blog to user");
+            });
         }
-        res.redirect("/");
+        res.redirect("/dashboard/home");
     } catch (error) {
         console.log(error);
         res.redirect("/modifyblog");
     }
 }
+
+//Register page open
+
+exports.registerpage = async function (req, res) {
+    try {
+        res.render("register.ejs");
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//login page open
+
+exports.loginpage = async function (req, res) {
+    try {
+
+        res.render("login.ejs");
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// register user
+
+exports.registeruser = async function (req, res) {
+    try {
+
+        const user = await User.findOne({ username: req.body.username.trim() });
+
+        if (!user) {
+            bcrypt.hash(req.body.password.trim(), 10, async function (err, hash) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const newUser = {
+                        username: req.body.username.trim(),
+                        password: hash
+                    }
+                    await User.create(newUser);
+                    console.log("user registered");
+                }
+            });
+
+            res.redirect("/login");
+        }
+        else {
+            res.redirect("/register");
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.redirect("/register");
+    }
+}
+
+//login user
+exports.loginuser = async function (req, res) {
+    try {
+        const user = await User.findOne({ username: req.body.username.trim() });
+        if (user) {
+            bcrypt.compare(req.body.password.trim(), user.password, function (err, result) {
+                if (result === true) {
+                    req.session.myblog = user;
+                    res.redirect("/dashboard/home");
+                } else {
+                    res.redirect("/login");
+                }
+            });
+        } else {
+            console.log("No user found!");
+            res.redirect("/register");
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.redirect("/login");
+    }
+}
+
+
+
 
 
 

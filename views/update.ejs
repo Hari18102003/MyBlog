@@ -1,8 +1,9 @@
-<%- include("partials/header.ejs") %>
+<%- include("partials/dashboardheader.ejs") %>
 
     <div class="container">
         <div class="nav">
-            <p><a href="/" class="nav-link">Home</a>/<a href="/update" class="nav-link">Update Blog</a> </p>
+            <p><a href="/dashboard/home" class="nav-link">Home</a>/<a href="/update" class="nav-link">Update Blog</a>
+            </p>
         </div>
         <div class="modify-blog-content">
             <% if(blog){ %>
