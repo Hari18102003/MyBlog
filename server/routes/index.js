@@ -6,7 +6,7 @@ const middleware = require("../middleware/middleware");
 
 router.get("/", middleware.isLogin, controller.homepage);
 
-router.get("/viewmore", controller.viewmore);
+router.get("/viewmore", middleware.isAlreadyLogin, controller.viewmore);
 
 router.get("/modifyblog", middleware.isAlreadyLogin, controller.modifyblog);
 
@@ -18,7 +18,7 @@ router.post("/register", controller.registeruser);
 
 router.post("/login", controller.loginuser);
 
-router.post("/search", controller.searchblog);
+router.post("/search", middleware.isAlreadyLogin, controller.searchblog);
 
 router.post("/postblog", middleware.isAlreadyLogin, upload.single("image"), controller.postblog);
 
