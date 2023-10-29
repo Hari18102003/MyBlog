@@ -1,0 +1,21 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="container">
+
+        <div class="nav">
+            <p><a href="/" class="nav-link">Home</a>/<a href="/modifyblog" class="nav-link">Modify Blog</a> </p>
+        </div>
+        <div class="modify-blog-content">
+            <form action="/postblog" method="post" enctype="multipart/form-data">
+                <h1>Modify Blog</h1>
+                <div class="inputs">
+                    <input type="text" name="title" id="title" placeholder="Title">
+                    <textarea name="content" id="" cols="30" rows="10" placeholder="Content"></textarea>
+                    <input type="file" name="image" accept="image/*">
+                </div>
+                <div class="btn"><button class="add-btn" type="submit">Post blog</button></div>
+            </form>
+        </div>
+    </div>
+
+    <%- include("partials/footer.ejs") %>

@@ -1,0 +1,25 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="container">
+        <div class="nav">
+            <p><a href="/" class="nav-link">Home</a>/<a href="/update" class="nav-link">Update Blog</a> </p>
+        </div>
+        <div class="modify-blog-content">
+            <% if(blog){ %>
+                <form action="/update/<%= blog._id %>" method="post" enctype="multipart/form-data">
+                    <h1>Update Blog</h1>
+                    <div class="inputs">
+                        <input type="text" name="title" id="title" placeholder="Title" value="<%= blog.title %>">
+                        <textarea name="content" id="" cols="30" rows="10"
+                            placeholder="Content"><%= blog.content %></textarea>
+                        <input type="file" name="image" accept="image/*">
+                    </div>
+                    <div class="btn"><button class="add-btn" type="submit">Update blog</button></div>
+                </form>
+                <% }else{ %>
+                    <h1>No Blog to Update..</h1>
+                    <% } %>
+        </div>
+    </div>
+
+    <%- include("partials/footer.ejs") %>

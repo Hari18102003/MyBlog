@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyBlog - Post your blogs!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <h1><a href="/" class="logo-title">MyBlog</a></h1>
+        </div>
+        <div class="search">
+            <form action="/search" method="post">
+                <input type="search" name="searchTerm" placeholder="Search Blogs..." autocomplete="off" />
+            </form>
+        </div>
+        <div class="add-post">
+            <a href="/modifyblog"><button>Add Blog</button></a>
+        </div>
+    </nav>
+    <main>

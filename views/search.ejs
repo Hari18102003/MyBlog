@@ -1,0 +1,35 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="container">
+
+        <div class="nav">
+            <p><a href="/" class="nav-link">Home</a>/<a href="/search" class="nav-link">Search Results</a> </p>
+        </div>
+
+        <% if(searchblog.length> 0){ %>
+            <% searchblog.forEach(blog=> { %>
+                <a href="/<%= blog._id %>">
+                    <div class="card">
+                        <div class="img-holder">
+                            <img src="<%= blog.image %>" alt="<%= blog.title %>">
+                        </div>
+                        <div class="content">
+                            <h3 class="title">
+                                <%= blog.title %>
+                            </h3>
+                            <p class="description">
+                                <%= blog.content.substring(0, 100) + " ....." %>
+                            </p>
+                            <p class="date">
+                                <%= blog.date %>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <% }); %>
+                    <% }else{ %>
+                        <h1>No Blogs found..</h1>
+                        <% } %>
+    </div>
+
+    <%- include("partials/footer.ejs") %>
