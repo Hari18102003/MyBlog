@@ -99,7 +99,7 @@ exports.postblog = async function (req, res) {
                 console.log("uploaded");
             });
             const blogId = await Blog.findOne({ image: newPath });
-            const currentUser = await User.findOneAndUpdate({ _id: req.session.myblog._id });
+            const currentUser = await User.findOne({ _id: req.session.myblog._id });
             currentUser.blog.push(blogId);
             await currentUser.save().then(function () {
                 console.log("added blog to user");
