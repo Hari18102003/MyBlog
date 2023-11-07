@@ -10,6 +10,7 @@ exports.homepage = async function (req, res) {
     try {
         const limitNumber = 5;
         const blogs = await Blog.find().sort({ "_id": -1 }).limit(limitNumber);
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         res.render("index.ejs", { blogs });
 
     } catch (error) {
@@ -116,6 +117,7 @@ exports.postblog = async function (req, res) {
 
 exports.registerpage = async function (req, res) {
     try {
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         res.render("register.ejs");
 
     } catch (error) {
@@ -127,7 +129,7 @@ exports.registerpage = async function (req, res) {
 
 exports.loginpage = async function (req, res) {
     try {
-
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         res.render("login.ejs");
 
     } catch (error) {
